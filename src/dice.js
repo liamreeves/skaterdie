@@ -1,16 +1,15 @@
-
 import React, { useState } from "react";
 import { stances, sides } from "./tricks/stances";
 import { tricks } from "./tricks/tricks";
 import { rotations } from "./tricks/rotations";
 import styles from "./Home.module.css";
 
-export default function Home() {
+export default function Dice() {
   const [stance, setStance] = useState("");
   const [side, setSide] = useState("");
   const [trick, setTrick] = useState("");
   const [rotation, setRotation] = useState("");
-  const [changeTrick, handleChangeTrick] = useState(false);
+  const [changeTrick, handleChangeTrick] = useState(true);
   const [changeStance, handleChangeStance] = useState(false);
   const [changeRotation, handleChangeRotation] = useState(false);
   const [showHard, handleHard] = useState(false);
@@ -26,9 +25,7 @@ export default function Home() {
     let proTricks = showPro ? tricks.pro : [];
     let godTricks = showGod ? tricks.god : [];
     let chosenTricks = tricks.beginner.concat(hardTricks, proTricks, godTricks);
-    setTrick(
-      chosenTricks[Math.floor(Math.random() * chosenTricks.length)]
-    );
+    setTrick(chosenTricks[Math.floor(Math.random() * chosenTricks.length)]);
   };
 
   const randomRotation = () => {
@@ -45,6 +42,18 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.checkboxes}>
+        <div className={styles.checkbox}>
+          <input
+            onClick={() => handleChangeTrick(!changeTrick)}
+            type="checkbox"
+            name="trick"
+            id="trick"
+            checked={changeTrick}
+          />
+          <label className={styles.subTitle} htmlFor="trick">
+            Trick
+          </label>
+        </div>
         <div className={styles.checkbox}>
           <input
             onClick={() => handleChangeStance(!changeStance)}
@@ -67,18 +76,6 @@ export default function Home() {
           />
           <label className={styles.subTitle} htmlFor="rotation">
             Rotation
-          </label>
-        </div>
-        <div className={styles.checkbox}>
-          <input
-            onClick={() => handleChangeTrick(!changeTrick)}
-            type="checkbox"
-            name="trick"
-            id="trick"
-            checked={changeTrick}
-          />
-          <label className={styles.subTitle} htmlFor="trick">
-            Trick
           </label>
         </div>
       </div>
@@ -126,8 +123,7 @@ export default function Home() {
         <h1 className={styles.title}>
           {side} {rotation}
         </h1>
-        <h1 className={styles.title}></h1>
-        <h1 className={styles.title}>{trick}</h1>
+        <h1 className={styles.title} data-testid="trick">{trick}</h1>
       </div>
 
       <button className={styles.button} onClick={random}>

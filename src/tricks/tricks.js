@@ -3,7 +3,6 @@ export const tricks = {
     "Ollie",
     "Boneless",
     "Shove It",
-    "Pop Shove It",
     "No Comply",
     "Kickflip",
     "Heelflip",
