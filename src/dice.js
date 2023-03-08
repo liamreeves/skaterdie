@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { stances, sides } from "./tricks/stances";
+import { stances } from "./tricks/stances";
 import { tricks } from "./tricks/tricks";
 import { rotations } from "./tricks/rotations";
 import styles from "./Home.module.css";
 
 export default function Dice() {
   const [stance, setStance] = useState("");
-  const [side, setSide] = useState("");
   const [trick, setTrick] = useState("");
   const [rotation, setRotation] = useState("");
   const [changeTrick, handleChangeTrick] = useState(true);
@@ -30,7 +29,6 @@ export default function Dice() {
 
   const randomRotation = () => {
     setRotation(rotations[Math.floor(Math.random() * rotations.length)]);
-    setSide(sides[Math.floor(Math.random() * sides.length)]);
   };
 
   const random = () => {
@@ -121,7 +119,7 @@ export default function Dice() {
       <div className={styles.trick}>
         <h1 className={styles.title}>{stance}</h1>
         <h1 className={styles.title}>
-          {side} {rotation}
+          {rotation}
         </h1>
         <h1 className={styles.title} data-testid="trick">{trick}</h1>
       </div>

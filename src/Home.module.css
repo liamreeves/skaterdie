@@ -1,10 +1,19 @@
+@font-face {
+  font-family: bangers;
+  src: url(./fonts/Bangers.ttf);
+}
+
+button {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: bangers;
   height: 100vh;
-  background-color: #f6f6f6;
+  background-color: #000000;
 }
 
 .navbar {
@@ -31,11 +40,11 @@
 .title {
   font-size: calc(4vw * 2.5rem);
   margin-bottom: 5px;
-  color: #222222;
+  color: #fff;
 }
 
 .subTitle {
-  color: #222222;
+  color: #fff;
   padding: .5rem;
 }
 .checkboxes {

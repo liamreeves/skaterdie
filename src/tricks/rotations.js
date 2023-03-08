@@ -1,4 +1,6 @@
 export const rotations = [
-    "180",
-    "360",
+    "BS",
+    "FS",
+    "BS 360",
+    "FS 360",
 ]
