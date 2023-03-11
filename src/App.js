@@ -4,12 +4,12 @@ import { useLogin } from "./hooks/useLogin";
 import { AuthContext } from "./contexts/AuthContext";
 import { useContext } from "react";
 import DropdownMenu from "./components/DropdownMenu";
-import setUserTricks from "./hooks/saveToDatabase";
+import setUserTricks from "./hooks/setUserTricks";
 
 function App() {
   const { login, isPending } = useLogin();
   const { user } = useContext(AuthContext);
-  console.log(user);
+  
   setUserTricks(user?.uid, {
     Kickflip: {
       landed: true,
