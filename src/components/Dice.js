@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { stances } from "./tricks/stances";
-import { tricks } from "./tricks/tricks";
-import { rotations } from "./tricks/rotations";
-import styles from "./Home.module.css";
+import React, { useContext, useState } from "react";
+import { stances } from "../tricks/stances";
+import { tricks } from "../tricks/tricks";
+import { rotations } from "../tricks/rotations";
+import styles from "../Home.module.css";
+import setUserTricks from "../hooks/setUserTricks";
+import { AuthContext } from "../contexts/AuthContext";
+import { getDatabase, ref, child, get } from "firebase/database";
+
 
 export default function Dice() {
   const [stance, setStance] = useState("");
   const [trick, setTrick] = useState("");
+  const [trickList, setTrickList] = useState("");
   const [rotation, setRotation] = useState("");
   const [changeTrick, handleChangeTrick] = useState(true);
   const [changeStance, handleChangeStance] = useState(false);
@@ -14,6 +19,9 @@ export default function Dice() {
   const [showHard, handleHard] = useState(false);
   const [showPro, handlePro] = useState(false);
   const [showGod, handleGod] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  
 
   const randomStance = () => {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
@@ -42,7 +50,7 @@ export default function Dice() {
       <div className={styles.checkboxes}>
         <div className={styles.checkbox}>
           <input
-            onClick={() => handleChangeTrick(!changeTrick)}
+            onChange={() => handleChangeTrick(!changeTrick)}
             type="checkbox"
             name="trick"
             id="trick"
@@ -54,7 +62,7 @@ export default function Dice() {
         </div>
         <div className={styles.checkbox}>
           <input
-            onClick={() => handleChangeStance(!changeStance)}
+            onChange={() => handleChangeStance(!changeStance)}
             type="checkbox"
             name="stance"
             id="stance"
@@ -66,7 +74,7 @@ export default function Dice() {
         </div>
         <div className={styles.checkbox}>
           <input
-            onClick={() => handleChangeRotation(!changeRotation)}
+            onChange={() => handleChangeRotation(!changeRotation)}
             type="checkbox"
             name="rotation"
             id="rotation"
@@ -77,11 +85,10 @@ export default function Dice() {
           </label>
         </div>
       </div>
-
       <div className={styles.checkboxes}>
         <div className={styles.checkbox}>
           <input
-            onClick={() => handleHard(!showHard)}
+            onChange={() => handleHard(!showHard)}
             type="checkbox"
             name="hard"
             id="hard"
@@ -93,7 +100,7 @@ export default function Dice() {
         </div>
         <div className={styles.checkbox}>
           <input
-            onClick={() => handlePro(!showPro)}
+            onChange={() => handlePro(!showPro)}
             type="checkbox"
             name="pro"
             id="pro"
@@ -105,7 +112,7 @@ export default function Dice() {
         </div>
         <div className={styles.checkbox}>
           <input
-            onClick={() => handleGod(!showGod)}
+            onChange={() => handleGod(!showGod)}
             type="checkbox"
             name="god"
             id="god"
@@ -118,15 +125,24 @@ export default function Dice() {
       </div>
       <div className={styles.trick}>
         <h1 className={styles.title}>{stance}</h1>
-        <h1 className={styles.title}>
-          {rotation}
+        <h1 className={styles.title}>{rotation}</h1>
+        <h1 className={styles.title} data-testid="trick">
+          {trick}
         </h1>
-        <h1 className={styles.title} data-testid="trick">{trick}</h1>
       </div>
-
       <button className={styles.button} onClick={random}>
         New Trick
       </button>
+      {user ? (
+        <button
+          className={styles.button}
+          onClick={() => setUserTricks(user?.uid, trick)}
+        >
+          Save Trick
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
