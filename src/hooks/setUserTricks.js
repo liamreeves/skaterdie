@@ -1,4 +1,4 @@
-import { getDatabase, ref, update, get, child } from "firebase/database";
+import { getDatabase, ref, update} from "firebase/database";
 
 
 // Define the update function

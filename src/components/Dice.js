@@ -5,13 +5,11 @@ import { rotations } from "../tricks/rotations";
 import styles from "../Home.module.css";
 import setUserTricks from "../hooks/setUserTricks";
 import { AuthContext } from "../contexts/AuthContext";
-import { getDatabase, ref, child, get } from "firebase/database";
 
 
 export default function Dice() {
   const [stance, setStance] = useState("");
   const [trick, setTrick] = useState("");
-  const [trickList, setTrickList] = useState("");
   const [rotation, setRotation] = useState("");
   const [changeTrick, handleChangeTrick] = useState(true);
   const [changeStance, handleChangeStance] = useState(false);
