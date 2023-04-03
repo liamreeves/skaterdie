@@ -10,9 +10,7 @@ export const useLogout = () => {
     try {
       await signOut(auth);
       dispatch({ type: "LOGOUT" });
-      console.log("user logged out");
     } catch (error) {
-      console.log(error.message);
     }
   };
 

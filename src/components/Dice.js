@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { stances } from "../tricks/stances";
 import { tricks } from "../tricks/tricks";
 import { rotations } from "../tricks/rotations";
 import styles from "../Home.module.css";
-import setUserTricks from "../hooks/setUserTricks";
+import updateUserTricksList from "../hooks/updateUserTricks";
 import { AuthContext } from "../contexts/AuthContext";
-
+import { getDatabase, ref, child, get } from "firebase/database";
+import TrickList from "./TrickList";
 
 export default function Dice() {
   const [stance, setStance] = useState("");
@@ -17,9 +18,41 @@ export default function Dice() {
   const [showHard, handleHard] = useState(false);
   const [showPro, handlePro] = useState(false);
   const [showGod, handleGod] = useState(false);
+  const [userTricks, setUserTricks] = useState([]);
 
   const { user } = useContext(AuthContext);
-  
+
+  useEffect(() => {
+    const tempTrickArray = [];
+    // This effect will only run when the user context changes
+    if (user) {
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `users/${user.uid}/tricks`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            for (const trick in snapshot.val()) {
+              tempTrickArray.push(trick);
+            }
+            setUserTricks(tempTrickArray);
+          } else {
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const ref = firebase.database().ref(`users/${user.uid}/tricks`);
+    ref.on("value", (snapshot) => {
+      const newData = snapshot.val();
+      setUserTricks(newData);
+    });
+    return () => {
+      ref.off();
+    };
+  }, []);
 
   const randomStance = () => {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
@@ -45,6 +78,7 @@ export default function Dice() {
 
   return (
     <div className={styles.container}>
+      {user ? <TrickList tricks={userTricks} /> : <div>Loading...</div>}
       <div className={styles.checkboxes}>
         <div className={styles.checkbox}>
           <input
@@ -134,7 +168,7 @@ export default function Dice() {
       {user ? (
         <button
           className={styles.button}
-          onClick={() => setUserTricks(user?.uid, trick)}
+          onClick={() => updateUserTricksList(user?.uid, trick)}
         >
           Save Trick
         </button>

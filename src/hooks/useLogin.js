@@ -21,10 +21,8 @@ export const useLogin = () => {
 
       const user = res.user;
       dispatch({ type: "LOGIN", payload: user });
-      console.log(user);
       setIsPending(false)
     } catch (error) {
-      console.log(error);
       setError(error.message);
       setIsPending(false);
     }
