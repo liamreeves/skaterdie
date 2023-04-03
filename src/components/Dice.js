@@ -43,17 +43,6 @@ export default function Dice() {
     }
   }, [user]);
 
-  useEffect(() => {
-    const ref = firebase.database().ref(`users/${user.uid}/tricks`);
-    ref.on("value", (snapshot) => {
-      const newData = snapshot.val();
-      setUserTricks(newData);
-    });
-    return () => {
-      ref.off();
-    };
-  }, []);
-
   const randomStance = () => {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
   };

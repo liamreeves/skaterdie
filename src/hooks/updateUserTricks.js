@@ -1,4 +1,4 @@
-import { getDatabase, ref, update} from "firebase/database";
+import { getDatabase, ref} from "firebase/database";
 
 export default function updateUserTricks(userId, trickName) {
 // Get a reference to the Firebase Realtime Database
