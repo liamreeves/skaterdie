@@ -41,7 +41,7 @@ export default function Dice() {
           console.error(error);
         });
     }
-  }, [user]);
+  }, [user, userTricks]);
 
   const randomStance = () => {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
