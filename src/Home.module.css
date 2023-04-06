@@ -3,92 +3,74 @@
   src: url(./fonts/Bangers.ttf);
 }
 
-button {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+#root, html, body, #App {
+  height: 100%!important
 }
+
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  font-family: bangers;
-  height: 100vh;
-  background-color: #000000;
+  background-color: black;
+  height: 100%;
 }
 
-.navbar {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-  list-style: none;
-}
-
-.navlink {
-  text-decoration: none;
-  font-size: 24px;
-  color: #222222;
-  padding: 10px;
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
-}
-
-.navlink:hover {
-  background-color: #222222;
-  color: #ffffff;
-}
-
-.title {
-  font-size: calc(4vw * 2.5rem);
-  margin-bottom: 5px;
-  color: #fff;
-}
-
-.subTitle {
-  color: #fff;
-  padding: .5rem;
-}
 .checkboxes {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 50%;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .checkbox {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  width: 50%;
-  justify-content: space-around;
+  margin-right: 1rem;
 }
 
-.button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 24px;
-  border-radius: 5px;
-  border: none;
-  background-color: #222222;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  border: 1px solid #222222;
-
-}
-
-.button:hover {
-  background-color: #ffffff;
-  color: #222222;
-  border: 1px solid #222222;
-  border-width: 1px;
+.subTitle {
+  margin-left: 0.5rem;
 }
 
 .trick {
-  min-height: 40vh;
-  max-height: 40vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
+}
+
+.trick-list {
+  height: 100px;
+  overflow-y: auto;
+}
+
+.trick-list-container {
+  overflow: hidden;
+  height: 100px;
+}
+
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #388e3c;
 }

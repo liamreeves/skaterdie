@@ -67,7 +67,7 @@ export default function Dice() {
 
   return (
     <div className={styles.container}>
-      {user ? <TrickList tricks={userTricks} /> : <div>Loading...</div>}
+      {user ? <TrickList tricks={userTricks} /> : ""}
       <div className={styles.checkboxes}>
         <div className={styles.checkbox}>
           <input

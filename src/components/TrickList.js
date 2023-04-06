@@ -3,5 +3,5 @@ export default function TrickList(props) {
     return <li key={trick}>{trick}</li>;
   });
 
-  return <ul>{trickList}</ul>;
+  return <ul className=" trick-list" >{trickList}</ul>;
 }
