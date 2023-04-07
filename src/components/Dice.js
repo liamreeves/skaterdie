@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { stances } from "../tricks/stances";
 import { tricks } from "../tricks/tricks";
 import { rotations } from "../tricks/rotations";
-import styles from "../Home.module.css";
+import styles from "../styles/Home.module.css";
 import updateUserTricksList from "../hooks/updateUserTricks";
 import { AuthContext } from "../contexts/AuthContext";
 import { getDatabase, ref, child, get } from "firebase/database";
@@ -67,7 +67,9 @@ export default function Dice() {
 
   return (
     <div className={styles.container}>
-      {user ? <TrickList tricks={userTricks} /> : ""}
+      <div className={styles.trickListContainer}>
+        {user ? <TrickList className={styles.trickList} user={user} tricks={userTricks} /> : ""}
+      </div>
       <div className={styles.checkboxes}>
         <div className={styles.checkbox}>
           <input
