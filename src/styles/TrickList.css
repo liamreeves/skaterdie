@@ -1,0 +1,26 @@
+.trick-list {
+    overflow-y: auto;
+    height: 100px;
+    list-style: none;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .trick-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .remove-button {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0;
+    margin-left: .5rem;
+  }
+  

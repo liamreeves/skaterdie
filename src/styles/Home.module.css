@@ -1,0 +1,75 @@
+@font-face {
+  font-family: bangers;
+  src: url(.././fonts/Bangers.ttf);
+}
+
+#root, html, body, #App {
+  height: 100%!important
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  height: 100%;
+}
+
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.subTitle {
+  margin-left: 0.5rem;
+}
+
+.trick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.trickList {
+  overflow-y: auto;
+}
+
+.trickListContainer {
+  overflow: hidden;
+  height: 100px; margin: 1rem
+}
+
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #388e3c;
+}
