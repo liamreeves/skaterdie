@@ -7,11 +7,13 @@ import updateUserTricksList from "../hooks/updateUserTricks";
 import { AuthContext } from "../contexts/AuthContext";
 import { getDatabase, ref, child, get } from "firebase/database";
 import TrickList from "./TrickList";
+import HashLoader from "react-spinners/HashLoader";
 
-export default function Dice() {
+export default function Dice(props) {
   const [stance, setStance] = useState("");
-  const [trick, setTrick] = useState("");
   const [rotation, setRotation] = useState("");
+  const [trick, setTrick] = useState("");
+  const [fullTrickName, setFullTrickName] = useState("");
   const [changeTrick, handleChangeTrick] = useState(true);
   const [changeStance, handleChangeStance] = useState(false);
   const [changeRotation, handleChangeRotation] = useState(false);
@@ -30,20 +32,24 @@ export default function Dice() {
       get(child(dbRef, `users/${user.uid}/tricks`))
         .then((snapshot) => {
           if (snapshot.exists()) {
-            console.log(snapshot.val());
             for (const trick in snapshot.val()) {
               tempTrickArray.push(trick);
             }
             setUserTricks(tempTrickArray);
           } else {
-            setUserTricks([])
+            setUserTricks([]);
           }
         })
         .catch((error) => {
           console.error(error);
         });
+    } else {
     }
   }, [user, userTricks]);
+
+  useEffect(() => {
+    setFullTrickName(`${stance} ${rotation} ${trick}`);
+  }, [rotation, stance, trick]);
 
   const randomStance = () => {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
@@ -75,6 +81,14 @@ export default function Dice() {
             className={styles.trickList}
             user={user}
             tricks={userTricks}
+          />
+        ) : props.loading ? (
+          <HashLoader
+            color="#ffffff"
+            loading={props.loading}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
           />
         ) : (
           ""
@@ -169,7 +183,7 @@ export default function Dice() {
       {user ? (
         <button
           className={styles.button}
-          onClick={() => updateUserTricksList(user?.uid, trick)}
+          onClick={() => updateUserTricksList(user?.uid, fullTrickName)}
         >
           Save Trick
         </button>

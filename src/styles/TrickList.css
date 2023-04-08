@@ -2,8 +2,7 @@
     overflow-y: auto;
     height: 100px;
     list-style: none;
-    padding: 1rem;
-    margin: 1rem;
+    padding: 0;
   }
   
   .trick-list li {
@@ -12,6 +11,9 @@
     align-items: center;
     padding: 5px;
     border-bottom: 1px solid ;
+    text-align: center;
+    padding: none
+
   }
   
   .remove-button {
