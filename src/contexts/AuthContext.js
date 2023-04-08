@@ -3,7 +3,7 @@ import { authReducer } from "../reducers/authReducer";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({ user: null });
 
 const AuthContextProvider = ({ children }) => {
 
