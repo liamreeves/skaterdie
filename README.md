@@ -12,7 +12,7 @@ Features
 
 A demo can be found here: 
 
-[SkaterDie](skaterdie.web.app)
+[SkaterDie](https://skaterdie.web.app)
 
 
 # Getting Started
