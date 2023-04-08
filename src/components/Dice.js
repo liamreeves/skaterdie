@@ -30,11 +30,13 @@ export default function Dice() {
       get(child(dbRef, `users/${user.uid}/tricks`))
         .then((snapshot) => {
           if (snapshot.exists()) {
+            console.log(snapshot.val());
             for (const trick in snapshot.val()) {
               tempTrickArray.push(trick);
             }
             setUserTricks(tempTrickArray);
           } else {
+            setUserTricks([])
           }
         })
         .catch((error) => {
@@ -68,7 +70,15 @@ export default function Dice() {
   return (
     <div className={styles.container}>
       <div className={styles.trickListContainer}>
-        {user ? <TrickList className={styles.trickList} user={user} tricks={userTricks} /> : ""}
+        {user ? (
+          <TrickList
+            className={styles.trickList}
+            user={user}
+            tricks={userTricks}
+          />
+        ) : (
+          ""
+        )}
       </div>
       <div className={styles.checkboxes}>
         <div className={styles.checkbox}>
