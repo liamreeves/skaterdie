@@ -15,7 +15,6 @@ export default function Dice(props) {
   const [rotation, setRotation] = useState("");
   const [trick, setTrick] = useState("");
   const [landed, setLanded] = useState(true);
-  const [fullTrickName, setFullTrickName] = useState("");
   const [changeTrick, handleChangeTrick] = useState(true);
   const [changeStance, handleChangeStance] = useState(false);
   const [changeRotation, handleChangeRotation] = useState(false);
@@ -42,12 +41,15 @@ export default function Dice(props) {
                 // loop through rotations
                 Object.entries(trickType[1]).map((trickRotation) => {
                   tempTrickArray.push([
-                    (trickType[0]),
-                      (trickRotation[0]),
-                      trickOverview[0]
+                    trickType[0],
+                    trickRotation[0],
+                    trickOverview[0],
                   ]);
+                  return 1;
                 });
+                return 1;
               });
+              return 1;
             });
             setUserTricks(tempTrickArray);
           } else {
@@ -61,9 +63,7 @@ export default function Dice(props) {
     }
   }, [user, userTricks]);
 
-  useEffect(() => {
-    setFullTrickName(`${stance} ${rotation} ${trick}`);
-  }, [rotation, stance, trick]);
+  useEffect(() => {}, [rotation, stance, trick]);
 
   const randomStance = () => {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
