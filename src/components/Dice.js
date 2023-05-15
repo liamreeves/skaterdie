@@ -8,6 +8,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { getDatabase, ref, child, get } from "firebase/database";
 import TrickList from "./TrickList";
 import HashLoader from "react-spinners/HashLoader";
+import AddTrick from "./AddTrick";
 
 export default function Dice(props) {
   const [stance, setStance] = useState("");
@@ -177,19 +178,26 @@ export default function Dice(props) {
           {trick}
         </h1>
       </div>
-      <button className={styles.button} onClick={random}>
-        New Trick
-      </button>
-      {user ? (
-        <button
-          className={styles.button}
-          onClick={() => updateUserTricksList(user?.uid, fullTrickName)}
-        >
-          Save Trick
+      <AddTrick
+        setTrick={setTrick}
+        setRotation={setRotation}
+        setStance={setStance}
+      />
+      <div>
+        <button className={styles.button} onClick={random}>
+          New Trick
         </button>
-      ) : (
-        ""
-      )}
+        {user ? (
+          <button
+            className={styles.button}
+            onClick={() => updateUserTricksList(user?.uid, fullTrickName)}
+          >
+            Save Trick
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }
