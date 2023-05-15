@@ -14,6 +14,7 @@ export default function Dice(props) {
   const [stance, setStance] = useState("");
   const [rotation, setRotation] = useState("");
   const [trick, setTrick] = useState("");
+  const [landed, setLanded] = useState(true);
   const [fullTrickName, setFullTrickName] = useState("");
   const [changeTrick, handleChangeTrick] = useState(true);
   const [changeStance, handleChangeStance] = useState(false);
@@ -33,9 +34,21 @@ export default function Dice(props) {
       get(child(dbRef, `users/${user.uid}/tricks`))
         .then((snapshot) => {
           if (snapshot.exists()) {
-            for (const trick in snapshot.val()) {
-              tempTrickArray.push(trick);
-            }
+            const trickEntries = Object.entries(snapshot.val());
+            // loop through tricks
+            trickEntries.map((trickOverview) => {
+              // loop through stances
+              Object.entries(trickOverview[1]).map((trickType) => {
+                // loop through rotations
+                Object.entries(trickType[1]).map((trickRotation) => {
+                  tempTrickArray.push([
+                    (trickType[0]),
+                      (trickRotation[0]),
+                      trickOverview[0]
+                  ]);
+                });
+              });
+            });
             setUserTricks(tempTrickArray);
           } else {
             setUserTricks([]);
@@ -171,12 +184,24 @@ export default function Dice(props) {
           </label>
         </div>
       </div>
-      <div className={styles.trick}>
-        <h1 className={styles.title}>{stance}</h1>
-        <h1 className={styles.title}>{rotation}</h1>
-        <h1 className={styles.title} data-testid="trick">
-          {trick}
-        </h1>
+      <div>
+        <div className={styles.trick}>
+          <h1 className={styles.title}>{stance}</h1>
+          <h1 className={styles.title}>{rotation}</h1>
+          <h1 className={styles.title} data-testid="trick">
+            {trick}
+          </h1>
+        </div>
+        <input
+          onChange={() => setLanded(!landed)}
+          type="checkbox"
+          name="landed"
+          id="landed"
+          checked={landed}
+        />
+        <label className={styles.subTitle} htmlFor="landed">
+          Landed?
+        </label>
       </div>
       <AddTrick
         setTrick={setTrick}
@@ -190,7 +215,9 @@ export default function Dice(props) {
         {user ? (
           <button
             className={styles.button}
-            onClick={() => updateUserTricksList(user?.uid, fullTrickName)}
+            onClick={() =>
+              updateUserTricksList(user?.uid, trick, stance, rotation, landed)
+            }
           >
             Save Trick
           </button>
