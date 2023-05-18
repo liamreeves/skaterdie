@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { stances } from "../tricks/stances";
 import { tricks } from "../tricks/tricks";
 import { rotations } from "../tricks/rotations";
 import styles from "../styles/Home.module.css";
 import updateUserTricksList from "../hooks/updateUserTricks";
 import { AuthContext } from "../contexts/AuthContext";
-import { getDatabase, ref, child, get } from "firebase/database";
-import TrickList from "./TrickList";
-import HashLoader from "react-spinners/HashLoader";
-import AddTrick from "./AddTrick";
 
-export default function Dice(props) {
+export default function Dice() {
   const [stance, setStance] = useState("");
   const [rotation, setRotation] = useState("");
   const [trick, setTrick] = useState("");
@@ -21,49 +17,8 @@ export default function Dice(props) {
   const [showHard, handleHard] = useState(false);
   const [showPro, handlePro] = useState(false);
   const [showGod, handleGod] = useState(false);
-  const [userTricks, setUserTricks] = useState([]);
 
   const { user } = useContext(AuthContext);
-
-  useEffect(() => {
-    const tempTrickArray = [];
-    // This effect will only run when the user context changes
-    if (user) {
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `users/${user.uid}/tricks`))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const trickEntries = Object.entries(snapshot.val());
-            // loop through tricks
-            trickEntries.map((trickOverview) => {
-              // loop through stances
-              Object.entries(trickOverview[1]).map((trickType) => {
-                // loop through rotations
-                Object.entries(trickType[1]).map((trickRotation) => {
-                  tempTrickArray.push([
-                    trickType[0],
-                    trickRotation[0],
-                    trickOverview[0],
-                  ]);
-                  return 1;
-                });
-                return 1;
-              });
-              return 1;
-            });
-            setUserTricks(tempTrickArray);
-          } else {
-            setUserTricks([]);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
-    }
-  }, [user, userTricks]);
-
-  useEffect(() => {}, [rotation, stance, trick]);
 
   const randomStance = () => {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
@@ -89,25 +44,6 @@ export default function Dice(props) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.trickListContainer}>
-        {user ? (
-          <TrickList
-            className={styles.trickList}
-            user={user}
-            tricks={userTricks}
-          />
-        ) : props.loading ? (
-          <HashLoader
-            color="#ffffff"
-            loading={props.loading}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        ) : (
-          ""
-        )}
-      </div>
       <div className={styles.checkboxes}>
         <div className={styles.checkbox}>
           <input
@@ -203,11 +139,6 @@ export default function Dice(props) {
           Landed?
         </label>
       </div>
-      <AddTrick
-        setTrick={setTrick}
-        setRotation={setRotation}
-        setStance={setStance}
-      />
       <div>
         <button className={styles.button} onClick={random}>
           New Trick
