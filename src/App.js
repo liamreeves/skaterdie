@@ -1,52 +1,47 @@
-import "./App.css";
-import Dice from "./components/Dice";
-import { useLogin } from "./hooks/useLogin";
-import { AuthContext } from "./contexts/AuthContext";
-import { useContext, useState } from "react";
-import DropdownMenu from "./components/DropdownMenu";
+import * as React from "react";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
+import Dice from "./pages/Dice";
+import Navbar from "./components/Navbar";
+import AddTrick from "./pages/AddTrick";
+import Footer from "./components/Footer";
+import MyTricks from "./pages/MyTricks";
 
-function App() {
-  const { login, isPending } = useLogin();
-  const { user } = useContext(AuthContext);
-
-  const [darkMode, handleDarkMode] = useState(true);
-
+export default function App() {
   return (
-    <div
-      className={`App ${darkMode ? "dark" : "light"}`}
-      style={{ height: "100%" }}
-    >
-      <header>
-        {!user ? (
-          ""
-        ) : (
-          <DropdownMenu
-            darkMode={darkMode}
-            handleDarkMode={() => handleDarkMode(!darkMode)}
-          />
-        )}
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Dice />} />
+        <Route path="add" element={<AddTrick />} />
+        <Route path="tricks" element={<MyTricks />} />
 
-        {!user ? (
-          <button className="btn btn-dark" onClick={login}>
-            {isPending ? "Loading..." : "Login With Google"}
-          </button>
-        ) : (
-          `Hey ${user.displayName}`
-        )}
-      </header>
-      <Dice loading={isPending}/>
-      <footer>
-        The code for this project can be found{" "}
-        <a
-          rel="noreferrer"
-          target="_blank"
-          href="https://github.com/liamreeves/skaterdie"
-        >
-          here
-        </a>
-      </footer>
+        {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+        <Route path="*" element={<NoMatch />} />
+      </Route>
+    </Routes>
+  );
+}
+
+function Layout() {
+  return (
+    <div className=" h-full">
+      <Navbar />
+      <hr />
+      <Outlet />
+      <hr />
+      <Footer />
     </div>
   );
 }
 
-export default App;
+function NoMatch() {
+  return (
+    <div>
+      <h2>Nothing to see here!</h2>
+      <p>
+        <Link to="/">Go to the home page</Link>
+      </p>
+    </div>
+  );
+}

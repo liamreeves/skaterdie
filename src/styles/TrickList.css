@@ -1,6 +1,5 @@
 .trick-list {
     overflow-y: auto;
-    height: 100px;
     list-style: none;
     padding: 0;
   }

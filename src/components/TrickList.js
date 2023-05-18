@@ -3,7 +3,6 @@ import "../styles/TrickList.css";
 
 export default function TrickList(props) {
   const trickList = props.tricks.map((trick) => {
-    //console.log(trick.split(" "))
     return (
       <li key={trick}>
         {trick[0] === "Regular"
