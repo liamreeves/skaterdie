@@ -24,6 +24,7 @@ export default function Dice() {
     setStance(stances[Math.floor(Math.random() * stances.length)]);
   };
 
+  console.log(user)
   const randomTrick = () => {
     let hardTricks = showHard ? tricks.hard : [];
     let proTricks = showPro ? tricks.pro : [];

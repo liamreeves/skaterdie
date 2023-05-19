@@ -1,6 +1,6 @@
 import { getDatabase, ref, remove } from "firebase/database";
 
-export default function removeUserTrick(user, stance, rotation, trickName) {
+export default function removeUserTrick(user: string, stance: string, rotation: string, trickName: string) {
 
   // Get a reference to the Firebase Realtime Database
   const db = getDatabase();

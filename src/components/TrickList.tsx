@@ -1,10 +1,15 @@
 import removeUserTrick from "../hooks/removeUserTrick";
 import "../styles/TrickList.css";
 
-export default function TrickList(props) {
-  const trickList = props.tricks.map((trick) => {
+type Props = {
+  tricks: string[][],
+  user: {uid: string},
+}
+
+export default function TrickList({tricks, user}:Props) {
+  const trickList = tricks.map((trick) => {
     return (
-      <li key={trick}>
+      <li key={trick.join()}>
         {trick[0] === "Regular"
           ? (trick[1] === "Regular"
             ? trick[2]
@@ -12,7 +17,7 @@ export default function TrickList(props) {
           : trick[1] === "Regular" ? (trick[0] + " "  + trick[2]): trick.join(" ")}
         <button
           onClick={() =>
-            removeUserTrick(props.user.uid, trick[0], trick[1], trick[2])
+            removeUserTrick(user.uid, trick[0], trick[1], trick[2])
           }
           className="remove-button"
         >

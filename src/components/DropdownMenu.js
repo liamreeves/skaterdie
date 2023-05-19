@@ -4,12 +4,12 @@ import { useLogout } from '../hooks/useLogout';
 
 
 
-export default function DropdownMenu(props) {
+export default function DropdownMenu() {
 
 const { logout } = useLogout();
 
   return (
-    <DropdownButton id="dropdown-basic-button" variant={props.darkMode ? "dark" : "light"} title="Menu">
+    <DropdownButton id="dropdown-basic-button" variant="light" title="Menu">
       <Dropdown.Divider></Dropdown.Divider>
       <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
       <Dropdown.Divider></Dropdown.Divider>

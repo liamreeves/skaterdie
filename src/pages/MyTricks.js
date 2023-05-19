@@ -19,7 +19,7 @@ export default function MyTricks() {
     } else {
       setUserTricks([]);
     }
-  }, [user, userTricks]);
+  }, [user]);
 
   return <TrickList user={user} tricks={userTricks} />;
 }
